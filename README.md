@@ -12,7 +12,7 @@
 
 ## Live demo
 
-You can visit live version via [link](https://mirouhml.github.io/react-tutorial/).
+You can visit live version via [link](https://mirouhml.github.io/react-tutorial/) (not working yet).
 
 ## Getting Started
 
