@@ -1,36 +1,38 @@
-import React, { useState } from "react"
-import styles from "./TodoItem.module.css"
+/* eslint-disable react/destructuring-assignment */
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styles from './TodoItem.module.css';
 
 const TodoItem = (props) => {
   const completedStyle = {
-    fontStyle: "italic",
-    color: "#595959",
+    fontStyle: 'italic',
+    color: '#595959',
     opacity: 0.4,
-    textDecoration: "line-through",
-  }
+    textDecoration: 'line-through',
+  };
 
   const [editing, setEditing] = useState(false);
 
-  const { completed, id, title } = props.todo
+  const { completed, id, title } = props.todo;
 
   const handleEditing = () => {
     setEditing(true);
-  }
+  };
 
-  let viewMode = {}
-  let editMode = {}
+  const viewMode = {};
+  const editMode = {};
 
   if (editing) {
-    viewMode.display = "none"
+    viewMode.display = 'none';
   } else {
-    editMode.display = "none"
+    editMode.display = 'none';
   }
 
-  const handleUpdatedDone = event => {
-    if (event.key === "Enter") {
+  const handleUpdatedDone = (event) => {
+    if (event.key === 'Enter') {
       setEditing(false);
     }
-  }
+  };
 
   return (
     <li className={styles.item}>
@@ -43,7 +45,7 @@ const TodoItem = (props) => {
         <span style={completed ? completedStyle : null}>
           {title}
         </span>
-        <button onClick={() => props.deleteTodoProps(id)}>
+        <button type="button" onClick={() => props.deleteTodoProps(id)}>
           Delete
         </button>
       </div>
@@ -52,13 +54,24 @@ const TodoItem = (props) => {
         style={editMode}
         className={styles.textInput}
         value={title}
-        onChange={e => {
-          props.setUpdate(e.target.value, id)
+        onChange={(e) => {
+          props.setUpdate(e.target.value, id);
         }}
         onKeyDown={handleUpdatedDone}
       />
-    </li> 
-  )
-}
+    </li>
+  );
+};
 
-export default TodoItem
+export default TodoItem;
+
+TodoItem.propTypes = {
+  todo: PropTypes.shape({
+    completed: PropTypes.bool,
+    id: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
+  handleChangeProps: PropTypes.func.isRequired,
+  deleteTodoProps: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+};
